@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+{% for x in Users %}
+	{{x}}
+{% endfor %}
+<form action="/" method="post">
+	{% csrf_token %}
+	{{form.Username}}
+	{{form.Firstname}}
+	{{form.Lastname}}
+	{{form.email}}
+	{{form.Password}}
+	<input type="submit" value"Register">
+{% endblock %}
