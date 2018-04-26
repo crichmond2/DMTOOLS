@@ -32,16 +32,16 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Help</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Forum</a>
+          <a class="nav-link" href="/register/">Register</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Homebrew</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/register/">Register/Login</a>
+          <a class="nav-link" href="#">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Help</a>
         </li>
       </ul>
     </div>
@@ -75,16 +75,20 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSuppotedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown ">
+        <li class="nav-item dropdown">
         <!-- Example split danger button -->
-        <div class="btn-group nav-link">
-          <button type="button" class="btn btn-dark ">{{User}}</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-dark">{{User}}</button>
             <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="logout/">Logout</a>
+            <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
           </div>
         </li>
       </ul>
