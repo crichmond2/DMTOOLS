@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/World_Generator/">World Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Town_Generator">Town Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Shop_Generator">Shop Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Encounter_Generator">Encounter Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+      </li>
+    </ul>
+  </div>
+    <div class="mx-auto order-0">
+      <a class="navbar-brand mx-auto" href="/">DM TOOLS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSuppotedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/Help/">Help</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Forum/">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Homebrew/">Homebrew</a>
+        </li>
+        <li class="nav-item dropdown ">
+        <!-- Example split danger button -->
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">{{Username}}</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="logout/">Logout</a>
+          </div>
+        </div>
+			</li>
+     </ul>
+   </div>
+</nav>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% for x in players %}
+	{{x}}
+{% endfor %}
+{% endblock %}

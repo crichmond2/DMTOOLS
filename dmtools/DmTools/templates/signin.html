@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+      <H1>Sign in</H1>
+      <form action="/Signin/" method="post">
+        {% csrf_token %}
+        {{SIform}}
+        <!--{{SIform.errors}}
+        {{SIform.username.label_tag}}
+        {{SIform.username}}
+        {{SIform.password.label_tag}}
+        {{SIform.password}}-->
+      <input type="submit" value="Sign In">
+{% endblock %}
