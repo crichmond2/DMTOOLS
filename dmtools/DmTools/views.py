@@ -10,6 +10,28 @@ def home(request):
   loggedin_user = request.user.get_username()
   context = {"Users":User.objects.all(),"User":loggedin_user}
   return render(request,"home.html",context)
+def signin(request):
+  if request.method == "POST":
+    form = LoginForm(request.POST)
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username,password=password)
+    print(user)
+    if user is not None:
+      login(request,user)
+      return redirect("home")
+    #print(str(form.is_valid()))
+
+    #if form.is_valid():
+     # username = form.cleaned_data.get("Username")
+     # password = form.cleaned_data.get("Password")
+     # user = authenticate(username=username,password=password)
+     # login(request,user)
+     # return redirect("home")
+  else:
+    form = LoginForm()
+  context = {"SIform":form}
+  return render(request,"signin.html",context)
 def register(request):
   if request.method == "POST":
     form = UserCreationForm(request.POST)
@@ -21,8 +43,9 @@ def register(request):
       login(request,user)
       return redirect("home")
   else:
-	  form = UserCreationForm()
-  context = {"form":form,"Users":User.objects.all()}
+    form = UserCreationForm()
+    form2 = LoginForm()    
+  context = {"form":form,"SIform":form2}
   return render(request,"register.html",context)
 		
 def Logout(request):

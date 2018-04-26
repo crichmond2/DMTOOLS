@@ -2,26 +2,29 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block body %}
-{% for x in Users %}
-	{{x}}
-{% endfor %}
-<form action="/register/" method="post">
-	{% csrf_token %}
-	<!--{{form.Username}}
-	{{form.Firstname}}
-	{{form.Lastname}}
-	{{form.Email}}
-	{{form.Password}}
-  {{form.Username}}<br>
-  {{form.Firstname}}<br>
-  {{form.Lastname}}<br>
-  {{form.Email}}<br>
-  {{form.Password1}}<br>
-  {{form.Password2}}<br>-->
-  {% for field in form%}
-    <p>
-      {{field.label_tag}} {{field}} {% for error in field.errors %}<a style="color:red;text-decoration:none">{{error}}</a>{% endfor%}<br>
-    </p>
-    {% endfor %}
-	<input type="submit" value"Register">
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <!--<H1>Sign in</H1>
+      <form action="signin" method="post">
+        {% csrf_token %}
+          {% for field in SIform %}
+            <p>
+              {{field.label_tag}}{{field}}{% for error in field.errors%}<a style="color:red;text-decoration:none">{{error}}</a>{%endfor%}<br>
+            </p>
+          {%endfor%}
+      <input type="Submit" value="Sign In">-->
+    </div>
+    <div class="col-6">
+      <H1> Register </H1>
+      <form action="/register/" method="post">
+	      {% csrf_token %}
+        {% for field in form%}
+        <p>
+          {{field.label_tag}} {{field}} {% for error in field.errors %}<a style="color:red;text-decoration:none">{{error}}</a>{% endfor%}<br>
+        </p>
+      {% endfor %}
+	  <input type="submit" value"Register">
+  </div>
+</div>
 {% endblock %}
