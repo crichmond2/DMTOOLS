@@ -29,3 +29,18 @@ class LoginForm(AuthenticationForm):
                              validators=[validate_unicode_slug]
                              )
   password = forms.CharField(label="Password",widget=PasswordInput(),required = True) 
+class CampaignForm(forms.Form):
+  Name = forms.CharField(label="Campaign Name")
+  NumPlayer = forms.IntegerField()
+  DmName = forms.CharField(label="Dm Name")
+  class Meta:
+    model = Campaigns
+    fields = ("Name","Num_Players","DmName")
+  def save(self,commit=True):
+    Camp = Campaigns()
+    Camp.Name = self.cleaned_data['Name']
+    Camp.Num_Players = self.cleaned_data['NumPlayer']
+    Camp.DmName = self.cleaned_data['DmName']
+    if(commit==True):
+      Camp.save()
+    return Camp

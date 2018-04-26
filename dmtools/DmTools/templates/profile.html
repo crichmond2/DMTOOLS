@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/World_Generator/">World Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Town_Generator">Town Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Shop_Generator">Shop Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Encounter_Generator">Encounter Generator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+      </li>
+    </ul>
+  </div>
+    <div class="mx-auto order-0">
+      <a class="navbar-brand mx-auto" href="/">DM TOOLS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSuppotedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/Help/">Help</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Forum/">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Homebrew/">Homebrew</a>
+        </li>
+        <li class="nav-item dropdown ">
+        <!-- Example split danger button -->
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">{{Username}}</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="logout/">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+<!--<div class="tabbable">--> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" style="color:black"data-toggle="tab">Campaings I DM</a></li>
+    <br>
+    <li><a href="#tab2" style="color:black"data-toggle="tab">Campaigns I participate in</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      {% for camp in DmFor %}
+        <p>{{camp}}</p>
+      {% endfor %}
+      <a href="/add_campaign/{{Username}}"style="color:black">DM a new Campaign</a>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <p>Howdy, I'm in Section 2.</p>
+    </div>
+  </div>
+  <form action="/profile/{{Username}}" method="post">
+    {% csrf_token %}
+    {{form}}
+  <input type="submit" value"Submit">
+{% endblock %}

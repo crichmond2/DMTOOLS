@@ -8,19 +8,19 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">World Generator</a>
+        <a class="nav-link" href="/World_Generator/">World Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Town Generator</a>
+        <a class="nav-link" href="/Town_Generator/">Town Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Shop Generator</a>
+        <a class="nav-link" href="/Shop_Generator/">Shop Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Encounter Generator</a>
+        <a class="nav-link" href="/Encounter_Generator/">Encounter Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Character Creator</a>
+        <a class="nav-link" href="/Character_Create/">Character Creator</a>
       </li>
     </ul>
   </div>
@@ -33,19 +33,19 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Help</a>
+          <a class="nav-link" href="/Help/">Help</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Forum</a>
+          <a class="nav-link" href="/Forum/">Forum</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Homebrew</a>
+          <a class="nav-link" href="/Homebrew/">Homebrew</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/register/">Register</a>
         </li>
         <li>
-          <a class="nav-link" href="/Signin">Sign in</a>
+          <a class="nav-link" href="/Signin/">Sign in</a>
         </li>
       </ul>
     </div>
@@ -55,24 +55,24 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">World Generator</a>
+        <a class="nav-link" href="/World_Generator/">World Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Town Generator</a>
+        <a class="nav-link" href="/Town_Generator">Town Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Shop Generator</a>
+        <a class="nav-link" href="/Shop_Generator">Shop Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Encounter Generator</a>
+        <a class="nav-link" href="/Encounter_Generator">Encounter Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Character Creator</a>
+        <a class="nav-link" href="/Character_Create/">Character Creator</a>
       </li>
     </ul>
   </div>
     <div class="mx-auto order-0">
-      <a class="navbar-brand mx-auto" href="#">DM TOOLS</a>
+      <a class="navbar-brand mx-auto" href="/">DM TOOLS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -80,13 +80,13 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSuppotedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Help</a>
+          <a class="nav-link" href="/Help/">Help</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Forum</a>
+          <a class="nav-link" href="/Forum/">Forum</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Homebrew</a>
+          <a class="nav-link" href="/Homebrew/">Homebrew</a>
         </li>
         <li class="nav-item dropdown ">
         <!-- Example split danger button -->
@@ -97,7 +97,7 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="logout/">Logout</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Profile</a>
           </div>
         </li>
       </ul>
@@ -160,8 +160,10 @@
       <div class="card text-white bg-dark">
         <img class="card-img-top"src="{% static "images/Town.jpg" %}">
         <div class="card-body">
-          <h4 class="card-title">Town Generator</h4>
-          <p class="card-text">Just some placeholder text</p>
+          <h4 class="card-title">
+            <a style="color:white;text-decoration:none"href="/Town_Generator">Town Generator</a>
+          </h4>
+          <p class="card-text">Just some placeholder text</a>
         </div>
       </div>
     </div>

@@ -47,6 +47,13 @@ def register(request):
     form2 = LoginForm()    
   context = {"form":form,"SIform":form2}
   return render(request,"register.html",context)
+def profile(request,USER):
+  form = CampaignForm()
+  Dmfor = Campaigns.objects.all().filter(DmName=USER).values_list('Name',flat=True)
+  DmFor = list(Dmfor)
+
+  context = {"Username":USER,"form":form,"DmFor":DmFor}
+  return render(request,"profile.html",context)
 		
 def Logout(request):
   logout(request)
