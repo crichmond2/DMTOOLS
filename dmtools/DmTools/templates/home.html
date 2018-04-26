@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Home{% endblock %}
 {% block body %}
 {% if not user.is_authenticated %} 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="#">World Generator</a>
       </li>
       <li class="nav-item">
@@ -50,23 +51,23 @@
     </div>
   </nav>
 {% else %}
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Left</a>
+      <li class="nav-item">
+        <a class="nav-link" href="#">World Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="//codeply.com">Codeply</a>
+        <a class="nav-link" href="#">Town Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Shop Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Encounter Generator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Character Creator</a>
       </li>
     </ul>
   </div>
@@ -78,6 +79,15 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSuppotedContent">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Help</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Homebrew</a>
+        </li>
         <li class="nav-item dropdown ">
         <!-- Example split danger button -->
         <div class="btn-group nav-link">
@@ -94,7 +104,74 @@
     </div>
   </nav>
 {% endif %}
-{% for x in Users %}
-	{{x}}
-{% endfor %}
+<br>
+<br>
+<br>
+<br>
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-4 col-med-6 col-sm-6 d-flex align-item-stretch">
+      <div class="card text-white bg-dark">
+        <img class="card-img-top"src="{% static "images/Dice.jpg" %}">
+        <div class="card-body">
+          <h4 class="card-title">Dice Roller</h4>
+          <p class="card-text">Just some placeholder text</p>
+        </div>
+      </div>
+    </div>
+      <br>
+    <div class="col-lg-4 col-med-6 col-sm-6 d-flex align-item-stretch">
+      <div class="card text-white bg-dark">
+        <img class="card-img-top"src="{% static "images/Encounter.jpg" %}">
+        <div class="card-body">
+          <h4 class="card-title">Encounter Generator</h4>
+          <p class="card-text">Just some placeholder text</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-med-6 col-sm-6 d-flex align-item-stretch">
+      <div class="card text-white bg-dark">
+        <img class="card-img-top"src="{% static "images/DnDWorld.jpg" %}">
+        <div class="card-body">
+          <h4 class="card-title">World Generator</h4>
+          <p class="card-text">Just some placeholder text</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-med-6 col-sm-6 d-flex align-item-stretch">
+      <div class="card text-white bg-dark">
+        <img class="card-img-top"src="{% static "images/NPCs.jpg" %}">
+        <div class="card-body">
+          <h4 class="card-title">NPC Creator</h4>
+          <p class="card-text">Just some placeholder text</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-med-6 col-sm-6 d-flex align-item-stretch">
+      <div class="card text-white bg-dark">
+        <img class="card-img-top"src="{% static "images/Character.jpg" %}">
+        <div class="card-body">
+          <h4 class="card-title">Chrarcter Creator</h4>
+          <p class="card-text">Just some placeholder text</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-med-6 col-sm-6 d-flex align-item-stretch">
+      <div class="card text-white bg-dark">
+        <img class="card-img-top"src="{% static "images/Town.jpg" %}">
+        <div class="card-body">
+          <h4 class="card-title">Town Generator</h4>
+          <p class="card-text">Just some placeholder text</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 {% endblock %}
