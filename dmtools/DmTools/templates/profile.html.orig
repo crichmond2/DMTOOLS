@@ -71,14 +71,24 @@
       {% for camp in DmFor %}
         <p>{{camp}}</p>
       {% endfor %}
-      <a href="/add_campaign/"style="color:black">DM a new Campaign</a>
+<<<<<<< HEAD
+      <a href="/add_campaign/{{Username}}"style="color:black">DM a new Campaign</a>
     </div>
     <div class="tab-pane" id="tab2">
+      <p>Howdy, I'm in Section 2.</p>
+=======
+      <a href="/add_campaign/"style="color:black">DM a new Campaign</a>
+    </div>
     <div class="tab-pane" id="tab2">
 			{% for play in Player %}
 				<p>{{play}}</p>
 			{% endfor %}
 			<a href="/join_campaign/" style="color:black">Join a Campaign</a>
+>>>>>>> f5d8e76bb9f7893201a871855198419b6ad77955
     </div>
   </div>
+  <form action="/profile/{{Username}}" method="post">
+    {% csrf_token %}
+    {{form}}
+  <input type="submit" value"Submit">
 {% endblock %}

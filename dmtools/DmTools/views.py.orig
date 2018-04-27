@@ -48,6 +48,15 @@ def register(request):
   context = {"form":form,"SIform":form2}
   return render(request,"register.html",context)
 def profile(request,USER):
+<<<<<<< HEAD
+  form = CampaignForm()
+  Dmfor = Campaigns.objects.all().filter(DmName=USER).values_list('Name',flat=True)
+  DmFor = list(Dmfor)
+
+  context = {"Username":USER,"form":form,"DmFor":DmFor}
+  return render(request,"profile.html",context)
+		
+=======
 	form = CampaignForm()
 	Dmfor = Campaigns.objects.all().filter(DmName=USER).values_list('Name',flat=True)
 	playerfor = Players.objects.all().filter(user=USER).values_list('Campaign',flat=True)
@@ -85,26 +94,11 @@ def JoinCamp(request):
 	context = {'form':form,'Searched':searched}
 	return render(request,'campaignsearch.html',context)
 def Campaign(request,CAMPAIGN):
-  player = list()
-  if request.method == "POST":
-    Form = AddPlayerForm(request.POST)
-    if Form.is_valid():
-      players = User.objects.all().filter(username = Form.cleaned_data['Name'] ).values_list("username",flat=True)
-      Users=list(players)
-      print(Users)
-      form=AddPlayerForm()
-      campaign = Campaigns.objects.get(Name = CAMPAIGN)
-      players = Players.objects.all().filter(Campaign=campaign.Name).select_related().filter(Campaign=campaign.Name).values_list("user",flat=True)
-      form = AddPlayerForm() 
-      context = {'players':players,"Page":CAMPAIGN,"form":form,"Search":Users}
-      return render(request,"Campaign.html",context)
-
-  campaign = Campaigns.objects.get(Name = CAMPAIGN)
-  players = Players.objects.all().filter(Campaign=campaign.Name).select_related().filter(Campaign=campaign.Name).values_list("user",flat=True)
-  user = request.user.username
-  form = AddPlayerForm() 
-  context = {'players':players,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player}
-  return render(request,"Campaign.html",context)
+	campaign = Campaigns.objects.get(Name = CAMPAIGN)
+	players = Players.objects.all().filter(Campaign=campaign.Name).select_related().filter(Campaign=campaign.Name).values_list("user",flat=True)
+	context = {'players':players}
+	return render(request,"Campaign.html",context)
+>>>>>>> f5d8e76bb9f7893201a871855198419b6ad77955
 def Logout(request):
   logout(request)
   return redirect("/")

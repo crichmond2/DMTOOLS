@@ -44,10 +44,10 @@ class CampaignForm(forms.Form):
     if(commit==True):
       Camp.save()
     return Camp
+<<<<<<< HEAD
+=======
 #class PlayerForm(forms.Form):
 #	Campaign
 class SearchForm(forms.Form):
 	Name = forms.CharField(widget = forms.TextInput(attrs={'placeholder':'Search for Campaign'}),required=True)
-class AddPlayerForm(forms.Form):
-  Name = forms.CharField(label="Name",
-                         widget=forms.TextInput(attrs={'placeholder':'Player Name'}),required=True)
+>>>>>>> f5d8e76bb9f7893201a871855198419b6ad77955

@@ -50,35 +50,25 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="logout/">Logout</a>
           </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-<!--<div class="tabbable">--> <!-- Only required for left/right tabs -->
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" style="color:black"data-toggle="tab">Campaings I DM</a></li>
-    <br>
-    <li><a href="#tab2" style="color:black"data-toggle="tab">Campaigns I participate in</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab1">
-      {% for camp in DmFor %}
-        <p>{{camp}}</p>
-      {% endfor %}
-      <a href="/add_campaign/"style="color:black">DM a new Campaign</a>
-    </div>
-    <div class="tab-pane" id="tab2">
-    <div class="tab-pane" id="tab2">
-			{% for play in Player %}
-				<p>{{play}}</p>
-			{% endfor %}
-			<a href="/join_campaign/" style="color:black">Join a Campaign</a>
-    </div>
-  </div>
+        </div>
+			</li>
+     </ul>
+   </div>
+</nav>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% for x in players %}
+	{{x}}
+{% endfor %}
+<h1>Add Players to your Campaign</h1>
+<form action="/Campaign/{{Page}}/" method="post">
+{% csrf_token %}
+{{form}}
+<input type="submit" value="Submit">
+{% for x in Search %}
+<p>{{x}}</p>
+{% endfor %}
 {% endblock %}

@@ -8,8 +8,11 @@ urlpatterns = [
   url(r'^Signin/Signin/$',views.signin,name='SigninHelp'),
   url(r'^register/$',views.register,name='Register'),
   url(r'^profile/(?P<USER>.*)/$',views.profile,name='profile'),
+<<<<<<< HEAD
+=======
 	url(r'^add_campaign/$',views.AddCamp,name='AddCampaign'),
 	url(r'^Campaign/(?P<CAMPAIGN>.+)/$',views.Campaign,name='Campaign'),
 	url(r'^join_campaign/$',views.JoinCamp,name='JoinCampaign'),
+>>>>>>> f5d8e76bb9f7893201a871855198419b6ad77955
   url(r'^logout/$',views.Logout,name='logout'),
 ]
