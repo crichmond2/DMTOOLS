@@ -13,5 +13,11 @@ class Players(models.Model):
   user = models.CharField(max_length=150)
   def save(self,*args,**kwargs):
     super(Players,self).save(*args,**kwargs)
-
+class Invitations(models.Model):
+  Campaign = models.CharField(max_length=500)
+  DM = models.CharField(max_length=150)
+  User = models.CharField(max_length=150)
+  def save(self,commit=True,*args,**kwargs):
+    if(commit==True):
+      super(Invitations,self).save(*args,**kwargs)
 # Create your models here.

@@ -8,19 +8,29 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/World_Generator/">World Generator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Town_Generator/">Town Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Shop_Generator/">Shop Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Encounter_Generator/">Encounter Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
@@ -36,7 +46,7 @@
           <a class="nav-link" href="/Help/">Help</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/Forum/">Forum</a>
+          <a class="nav-link bg-dark" href="/Forum/">Forum</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/Homebrew/">Homebrew</a>
@@ -55,19 +65,29 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/World_Generator/">World Generator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Town_Generator">Town Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Shop_Generator">Shop Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Encounter_Generator">Encounter Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
@@ -88,6 +108,25 @@
         <li class="nav-item">
           <a class="nav-link" href="/Homebrew/">Homebrew</a>
         </li>
+        <li>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">My Campaings</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">DM For</div>
+            {% for x in DM %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+            <div class="dropdown-header">Player For</div>
+            {% for x in Player %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+
+          </div>
+        </div>
+        </li>
         <li class="nav-item dropdown ">
         <!-- Example split danger button -->
         <div class="btn-group nav-link">
@@ -99,10 +138,11 @@
             <a class="dropdown-item" href="logout/">Logout</a>
             <a class="dropdown-item" href="/profile/{{User}}">Profile</a>
           </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
 {% endif %}
 <br>
 <br>

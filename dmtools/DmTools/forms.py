@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.forms import PasswordInput
 
+ACCEPT=(
+  ('Accept','Accept'),
+  ('Decline','Decline'))
 class RegistrationForm(UserCreationForm):
 	Email = forms.EmailField(widget = forms.TextInput(attrs={'placeholder':'example@example.com'}),required = True)
 	Username = forms.CharField(widget = forms.TextInput(attrs={'placeholder':'Username'}),required = True)
@@ -51,3 +54,6 @@ class SearchForm(forms.Form):
 class AddPlayerForm(forms.Form):
   Name = forms.CharField(label="Name",
                          widget=forms.TextInput(attrs={'placeholder':'Player Name'}),required=True)
+class InviteForm(forms.Form):
+  Campaign = forms.CharField()
+  accept = forms.ChoiceField(choices=ACCEPT)

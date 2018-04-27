@@ -61,24 +61,59 @@
   <br>
   <br>
 <!--<div class="tabbable">--> <!-- Only required for left/right tabs -->
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" style="color:black"data-toggle="tab">Campaings I DM</a></li>
-    <br>
-    <li><a href="#tab2" style="color:black"data-toggle="tab">Campaigns I participate in</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab1">
-      {% for camp in DmFor %}
-        <p>{{camp}}</p>
-      {% endfor %}
-      <a href="/add_campaign/"style="color:black">DM a new Campaign</a>
-    </div>
-    <div class="tab-pane" id="tab2">
-    <div class="tab-pane" id="tab2">
-			{% for play in Player %}
-				<p>{{play}}</p>
-			{% endfor %}
-			<a href="/join_campaign/" style="color:black">Join a Campaign</a>
-    </div>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" style="color:black"href="#DM" role="tab" data-toggle="tab">Campaigns I DM</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#player" style="color:black"role="tab" data-toggle="tab">Campaigns I Play In</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#invitations" style="color:black"role="tab" data-toggle="tab">Invitations</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active" id="DM">
+    {% for camp in DmFor %}
+      <p>{{camp}}</p>
+    {% endfor %} 
+    <a style="color:black" href="/add_campaign/">DM a new Campaign</a>
   </div>
+  <div role="tabpanel" class="tab-pane fade" id="player">
+	  {% for play in Player %}
+			<p>{{play}}</p>
+		{% endfor %}
+    <a style="color:black" href="/join_campaign/">Join a Campaign</a>
+  </div>
+  <div role="tabpanel" class="tab-pane fade" id="invitations">
+	  {% for inv in Invites %}
+			<p>{{inv}}
+        <form action="/profile/{{Username}}/"method="post">
+        {% csrf_token %}
+        {{Form.Campaign.as_hidden}}
+        {{Form.accept}}
+        <input type="submit" value="Respond">
+      </p>
+		{% endfor %}
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

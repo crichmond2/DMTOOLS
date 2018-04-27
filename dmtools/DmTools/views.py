@@ -7,8 +7,18 @@ from django.contrib.auth.forms import UserCreationForm
 def home(request):
   loggedin_user = "NULL"
   #if request.user.is_authenticated():
+  DmFor = list()
+  Playerfor = list()
+  if request.user.is_authenticated:
+    user = request.user.get_username()
+    print(user)
+    Dmfor = Campaigns.objects.all().filter(DmName=user).values_list('Name',flat=True)
+    playerfor = Players.objects.all().filter(user=request.user.get_username()).values_list('Campaign',flat=True)
+    DmFor = list(Dmfor)
+    Playerfor = list(playerfor)
+    print(DmFor)
   loggedin_user = request.user.get_username()
-  context = {"Users":User.objects.all(),"User":loggedin_user}
+  context = {"Users":User.objects.all(),"User":loggedin_user,"DM":DmFor,"Player":Playerfor}
   return render(request,"home.html",context)
 def signin(request):
   if request.method == "POST":
@@ -48,13 +58,29 @@ def register(request):
   context = {"form":form,"SIform":form2}
   return render(request,"register.html",context)
 def profile(request,USER):
-	form = CampaignForm()
-	Dmfor = Campaigns.objects.all().filter(DmName=USER).values_list('Name',flat=True)
-	playerfor = Players.objects.all().filter(user=USER).values_list('Campaign',flat=True)
-	DmFor = list(Dmfor)
-	Playerfor = list(playerfor)
-	context = {"Username":USER,"form":form,"DmFor":DmFor,"Player":Playerfor}
-	return render(request,"profile.html",context)
+  if request.method == "POST":
+    form = InviteForm(request.POST)
+    print(form.is_valid())
+    if form.is_valid():
+      if form.cleaned_data['accept'] == "Accept":
+        camp = Campaigns.objects.get(Name=form.cleaned_data['Campaign'])
+        player = Players.objects.create(Campaign=camp,user = USER)
+        invites = Invitations.objects.filter(Campaign=form.cleaned_data['Campaign']).filter(User=USER).delete()
+
+        
+  form = CampaignForm()
+  Dmfor = Campaigns.objects.all().filter(DmName=USER).values_list('Name',flat=True)
+  playerfor = Players.objects.all().filter(user=USER).values_list('Campaign',flat=True)
+  invites = Invitations.objects.all().filter(User=USER).values_list('Campaign',flat=True)
+  DmFor = list(Dmfor)
+  Playerfor = list(playerfor)
+  Invites = list(invites)
+  if Invites ==  None:
+    camp = {"Campaign":Invites[0]}
+    Form = InviteForm(camp)
+  Form = InviteForm()
+  context = {"Username":USER,"Form":Form,"form":form,"DmFor":DmFor,"Player":Playerfor,"Invites":Invites}
+  return render(request,"profile.html",context)
 
 def AddCamp(request):
 	if request.method == "POST":
@@ -96,14 +122,31 @@ def Campaign(request,CAMPAIGN):
       campaign = Campaigns.objects.get(Name = CAMPAIGN)
       players = Players.objects.all().filter(Campaign=campaign.Name).select_related().filter(Campaign=campaign.Name).values_list("user",flat=True)
       form = AddPlayerForm() 
-      context = {'players':players,"Page":CAMPAIGN,"form":form,"Search":Users}
+      DM = Campaigns.objects.all().filter(DmName=request.user.get_username()).values_list("DmName",flat=True)
+      dm = list(DM)
+      thedm = dm[0]
+      invite = Invitations.objects.create(Campaign = CAMPAIGN,DM = thedm,User = Form.cleaned_data['Name'])
+      invite.save()
+      print(thedm)
+      if request.user.get_username() == thedm:
+        owner = True
+      else:
+        owner = False
+      context = {'players':players,"Page":CAMPAIGN,"form":form,"Search":Users,"Owner":owner}
       return render(request,"Campaign.html",context)
-
+  DM = Campaigns.objects.all().filter(DmName=request.user.get_username()).values_list("DmName",flat=True)
+  dm = list(DM)
+  thedm = dm[0]
+  print(thedm)
+  if request.user.get_username() == thedm:
+    owner = True
+  else:
+    owner = False
   campaign = Campaigns.objects.get(Name = CAMPAIGN)
   players = Players.objects.all().filter(Campaign=campaign.Name).select_related().filter(Campaign=campaign.Name).values_list("user",flat=True)
   user = request.user.username
   form = AddPlayerForm() 
-  context = {'players':players,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player}
+  context = {'players':players,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner}
   return render(request,"Campaign.html",context)
 def Logout(request):
   logout(request)
