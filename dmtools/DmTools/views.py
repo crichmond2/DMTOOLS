@@ -112,7 +112,29 @@ def JoinCamp(request):
 	return render(request,'campaignsearch.html',context)
 def Campaign(request,CAMPAIGN):
   player = list()
-  if request.method == "POST":
+  DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
+  dm = list(DM)
+  thedm = dm[0]
+  #print(thedm)
+  if request.user.get_username() == thedm:
+    owner = True
+  else:
+    owner = False
+  print(CAMPAIGN)
+  print(owner)
+  if request.method == "POST" and owner == False:
+    print("HERE")
+    Form = JoinCampaignForm(request.POST)
+    if Form.is_valid():
+      campaign = Campaigns.objects.get(Name=CAMPAIGN)
+      if campaign.Password == Form.cleaned_data['Password']:
+        Players.objects.create(Campaign=campaign,user = request.user.get_username())
+        player = True
+        context = {'player':player}
+        return render(request,"Campaign.html",context)
+      else:
+        return redirect("/Campaign/" + CAMPAIGN + "/")
+  if request.method == "POST" and owner == True:
     Form = AddPlayerForm(request.POST)
     if Form.is_valid():
       players = User.objects.all().filter(username = Form.cleaned_data['Name'] ).values_list("username",flat=True)
@@ -134,19 +156,27 @@ def Campaign(request,CAMPAIGN):
         owner = False
       context = {'players':players,"Page":CAMPAIGN,"form":form,"Search":Users,"Owner":owner}
       return render(request,"Campaign.html",context)
-  DM = Campaigns.objects.all().filter(DmName=request.user.get_username()).values_list("DmName",flat=True)
+  DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
   dm = list(DM)
   thedm = dm[0]
-  print(thedm)
+  #print(thedm)
   if request.user.get_username() == thedm:
     owner = True
   else:
     owner = False
   campaign = Campaigns.objects.get(Name = CAMPAIGN)
   players = Players.objects.all().filter(Campaign=campaign.Name).select_related().filter(Campaign=campaign.Name).values_list("user",flat=True)
+  for x in players:
+    if x == request.user.get_username():
+      player = True
+      break
+    else:
+      player = False
   user = request.user.username
   form = AddPlayerForm() 
-  context = {'players':players,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner}
+  info = {'Campaign':CAMPAIGN}
+  Form = JoinCampaignForm(info) 
+  context = {'players':players,'player':player,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner,"Form":Form}
   return render(request,"Campaign.html",context)
 def Logout(request):
   logout(request)

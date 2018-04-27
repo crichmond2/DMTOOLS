@@ -77,13 +77,13 @@
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane fade in active" id="DM">
     {% for camp in DmFor %}
-      <p>{{camp}}</p>
+      <a style="color:black" href="/Campaign/{{camp}}/">{{camp}}</a><br>
     {% endfor %} 
     <a style="color:black" href="/add_campaign/">DM a new Campaign</a>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="player">
 	  {% for play in Player %}
-			<p>{{play}}</p>
+			<a style="color:black"href="/Campaign/{{play}}/">{{play}}</a><br>
 		{% endfor %}
     <a style="color:black" href="/join_campaign/">Join a Campaign</a>
   </div>

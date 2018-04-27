@@ -60,6 +60,7 @@
 <br>
 <br>
 <br>
+<h1>{{Page}}</h1>
 {% if Owner %}
   <h1>Add Players to your Campaign</h1>
   <form action="/Campaign/{{Page}}/" method="post">
@@ -76,9 +77,22 @@
   {% for x in Search %}
     <p>{{x}} Invited</p>
   {% endfor %}
-{% else %}
+{% elif player %}
+<h1> youre a member!</h1>
   {% for x in players %}
-	  {{x}}
-  {% endfor %} 
+    {% if x == Username %}
+	    {{x}} This is you<br>
+    {%else%}
+      {{x}}<br>
+    {% endif %}
+
+  {% endfor %}
+{% else %}
+  <h1>Join Campaign</h1>
+  <form action="/Campaign/{{Page}}/" method="post">
+  {% csrf_token %}
+  {{Form.Campaign.as_hidden}}
+  {{Form.Password.label}}{{Form.Password}}<br>
+  <input type="submit" value="Join">
 {% endif %}
 {% endblock %}

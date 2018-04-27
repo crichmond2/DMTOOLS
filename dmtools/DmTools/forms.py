@@ -36,14 +36,16 @@ class CampaignForm(forms.Form):
   Name = forms.CharField(label="Campaign Name")
   NumPlayer = forms.IntegerField()
   DmName = forms.CharField(label="Dm Name")
+  Password = forms.CharField(widget=PasswordInput())
   class Meta:
     model = Campaigns
-    fields = ("Name","Num_Players","DmName")
+    fields = ("Name","Num_Players","DmName","Password")
   def save(self,commit=True):
     Camp = Campaigns()
     Camp.Name = self.cleaned_data['Name']
     Camp.Num_Players = self.cleaned_data['NumPlayer']
     Camp.DmName = self.cleaned_data['DmName']
+    Camp.Password = self.cleaned_data['Password']
     if(commit==True):
       Camp.save()
     return Camp
@@ -57,3 +59,7 @@ class AddPlayerForm(forms.Form):
 class InviteForm(forms.Form):
   Campaign = forms.CharField()
   accept = forms.ChoiceField(choices=ACCEPT)
+class JoinCampaignForm(forms.Form):
+  Campaign = forms.CharField(label="Campaign Name")
+  Password = forms.CharField(label="Password",
+                             widget=PasswordInput())
