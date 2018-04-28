@@ -63,24 +63,14 @@ class JoinCampaignForm(forms.Form):
   Campaign = forms.CharField(label="Campaign Name")
   Password = forms.CharField(label="Password",
                              widget=PasswordInput())
-def get_choices(user):
-  print(user)
-  m_User = User.objects.get(username = user)
-  characters = Characters.objects.all().filter(user=m_User).select_related().values_list("Name",flat=True)
-  Chars = list(characters)
-  chars = []
-  for x in Chars:
-    chars.append([x,x])
-  return tuple(chars) 
 class AddCharacterForm(forms.Form):
 
   def __init__(self,user,*args,**kwargs):
     super(AddCharacterForm,self).__init__(*args,**kwargs)
-    #self.fields['Campaign'] = campaign
-    m_user = user
-    if(m_user != "None"):
-      self.fields['Name'] = forms.ChoiceField(choices=get_choices(m_user))
+    characters = Characters.objects.all().filter(user=user).select_related().values_list("Name")
+    Chars = list(characters)
+    self.fields['Name'].queryset = Chars
   Campaign = forms.CharField(label="Campaign Name")
   #characters = Characters.objects.all().filter(user=user).select_related().values_list("Name",flat=True)
   #Characters = list(characters)
-  Name = forms.ChoiceField(label = ": Add a Character",choices = ACCEPT)
+  Name = forms.ChoiceField(choices=Characters)

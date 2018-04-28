@@ -78,10 +78,22 @@
     <p>{{x}} Invited</p>
   {% endfor %}
 {% elif player %}
-<h1> youre a member!</h1>
+<h3> youre a member!</h3>
   {% for x in players %}
     {% if x == Username %}
-	    {{x}} This is you<br>
+      {% for y in chars %}
+        {% if y != "None" %}
+          <p>{{x}} playing as {{y}}</p>
+      {% else %} 
+        <form action="/add_char/{{Page}}/" method="post">
+	        <p>{{x}}
+          {% csrf_token %}
+          {{Characters}}
+          <!--{{Characters.Campaign.as_hidden}}
+          {{Characters.Name.label}}{{Characters.Name}}-->
+        <input type="submit" value="Add"></p>
+      {% endif %}
+      {% endfor %}
     {%else%}
       {{x}}<br>
     {% endif %}
