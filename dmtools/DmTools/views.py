@@ -129,7 +129,7 @@ def Campaign(request,CAMPAIGN):
       campaign = Campaigns.objects.get(Name=CAMPAIGN)
       if campaign.Password == Form.cleaned_data['Password']:
         Players.objects.create(Campaign=campaign,user = request.user.get_username())
-        player = True
+        Player = True
         DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
         dm = list(DM)
         thedm = dm[0]
@@ -140,20 +140,25 @@ def Campaign(request,CAMPAIGN):
         campaign = Campaigns.objects.get(Name = CAMPAIGN)
         players = Players.objects.all().filter(Campaign=campaign.Name).select_related().filter(Campaign=campaign.Name).values_list("user",flat=True)
         characters = Characters.objects.all().filter(user=request.user).select_related().values_list("Name",flat=True)
+        charac = Players.objects.all().filter(Campaign=campaign.Name).select_related().values_list("Character",flat=True)
         Chars = list(characters)
         user = request.user.username
         form = AddPlayerForm() 
         info = {'Campaign':CAMPAIGN}
         Form = JoinCampaignForm(info) 
+        CHARS = []
+        for x in range(len(players)):
+          CHARS.append([players[x],charac[x]])
         chars = []
         for x in Chars:
           chars.append([x,x])
-        charform = AddCharacterForm(choices = tuple(chars))
-        context = {'players':players,'player':player,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner,"Form":Form}
+        charform = AddCharacterForm(campaign=CAMPAIGN,user=request.user.get_username())#choices = tuple(chars))
+        context = {'players':tuple(CHARS),'player':player,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":Player,"Owner":owner,"Form":Form}
         return render(request,"Campaign.html",context)
       else:
         return redirect("/Campaign/" + CAMPAIGN + "/")
   if request.method == "POST" and owner == True:
+    print("ITS A POST")
     Form = AddPlayerForm(request.POST)
     if Form.is_valid():
       players = User.objects.all().filter(username = Form.cleaned_data['Name'] ).values_list("username",flat=True)
@@ -175,6 +180,7 @@ def Campaign(request,CAMPAIGN):
         owner = False
       context = {'players':players,"Page":CAMPAIGN,"form":form,"Search":Users,"Owner":owner}
       return render(request,"Campaign.html",context)
+  print("FOUND")
   DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
   dm = list(DM)
   thedm = dm[0]
@@ -198,12 +204,17 @@ def Campaign(request,CAMPAIGN):
   user = request.user.username
   form = AddPlayerForm() 
   info = {'Campaign':CAMPAIGN}
-  Form = JoinCampaignForm(info) 
+  Form = JoinCampaignForm(initial={'Campaign':CAMPAIGN}) 
   chars = []
+  CHARS = []
+  print("BEFORE RANGE")
+  for x in range(len(players)):
+    CHARS.append([players[x],charac[x]])
   for x in Chars:
     chars.append([x,x])
-  values = {"Campaign":CAMPAIGN,"Name":tuple(chars)}
-  charform = AddCharacterForm(user=request.user.get_username())#choices = tuple(chars))
+  values = {"Campaign":CAMPAIGN}
+  charform = AddCharacterForm(values)#campaign=CAMPAIGN,user=request.user.get_username())#choices = tuple(chars))
+  charform.fields['Name'].choices = tuple(chars)
   #charform.fields['Campaign']=CAMPAIGN
   #print(players)
   #print(player)
@@ -211,9 +222,9 @@ def Campaign(request,CAMPAIGN):
   #print(user)
   #print(player)
   #print(owner)
-  print(charac)
-  context = {'players':players,'player':Player,"chars":charac,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner,"Form":Form}
-  #print(context)
+  print(tuple(CHARS))
+  context = {'players':tuple(CHARS),'player':Player,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner,"Form":Form}
+  print(context)
   return render(request,"Campaign.html",context)
 def add_char(request,CAMPAIGN):
   if request.method == "POST":

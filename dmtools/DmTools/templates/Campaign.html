@@ -68,7 +68,7 @@
   {{form}}
   <input type="submit" value="Submit">
   <h3>Players in Campaign</h3>
-  {% for x in players %}
+  {% for x,y in players %}
 	  {{x}}
   {% endfor %}
   {% if Search %}
@@ -79,24 +79,25 @@
   {% endfor %}
 {% elif player %}
 <h3> youre a member!</h3>
-  {% for x in players %}
-    {% if x == Username %}
-      {% for y in chars %}
-        {% if y != "None" %}
+  {% for x,y in players %}
+    {% ifequal x Username %}
+        {% ifnotequal y "None"  %}
           <p>{{x}} playing as {{y}}</p>
       {% else %} 
         <form action="/add_char/{{Page}}/" method="post">
 	        <p>{{x}}
           {% csrf_token %}
-          {{Characters}}
-          <!--{{Characters.Campaign.as_hidden}}
-          {{Characters.Name.label}}{{Characters.Name}}-->
+          {{Characters.Campaign.as_hidden}}
+          {{Characters.Name.label}}{{Characters.Name}}
         <input type="submit" value="Add"></p>
-      {% endif %}
-      {% endfor %}
+      {% endifnotequal %}
     {%else%}
-      {{x}}<br>
-    {% endif %}
+      {% ifnotequal y "None" %}
+        <p>{{x}} playing as {{y}}</p>
+      {% else %}
+        <p>{{x}}'s Character is not assigned yet</p>
+      {% endifnotequal %}
+    {% endifequal %}
 
   {% endfor %}
 {% else %}
