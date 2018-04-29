@@ -123,7 +123,7 @@
           {% csrf_token %}
           {{Characters.Campaign.as_hidden}}
           {{Characters.Name.label}}{{Characters.Name}}
-        <input type="submit" value="Add"></p>
+        <input type="submit" class="btn btn-sm btn-dark" value="Add"></p>
       {% endifnotequal %}
     {%else%}
       {% ifnotequal y "None" %}

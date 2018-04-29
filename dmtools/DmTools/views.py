@@ -186,7 +186,12 @@ def Campaign(request,CAMPAIGN):
         owner = True
       else:
         owner = False
-      context = {'players':players,"Page":CAMPAIGN,"form":form,"Search":Users,"Owner":owner}
+      characters = Characters.objects.all().filter(user=request.user).select_related().values_list("Name",flat=True)
+      charac = Players.objects.all().filter(Campaign=campaign.Name).select_related().values_list("Character",flat=True)
+      CHARS = []
+      for x in range(len(players)):
+        CHARS.append([players[x],charac[x]])
+      context = {'players':tuple(CHARS),"Page":CAMPAIGN,"form":form,"Search":Users,"Owner":owner}
       return render(request,"Campaign.html",context)
   print("FOUND")
   DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
@@ -258,6 +263,16 @@ def change_char(request,CAMPAIGN):
   play.Character = "None"
   play.save()
   return redirect("/Campaign/"+CAMPAIGN+"/")
+def new_character(request):
+  if request.method=="POST":
+    form = NewCharacterForm(request.POST)
+    print(str(form.is_valid()))
+    if form.is_valid():
+      form.save()
+  values = {'user':request.user.get_username()}
+  form = NewCharacterForm(values)
+  context = {"CharacterForm":form}
+  return render(request,"character.html",context)
 def Logout(request):
   logout(request)
   return redirect("/")

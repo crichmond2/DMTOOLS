@@ -32,6 +32,20 @@ class LoginForm(AuthenticationForm):
                              validators=[validate_unicode_slug]
                              )
   password = forms.CharField(label="Password",widget=PasswordInput(),required = True) 
+class NewCharacterForm(forms.Form):
+  user = forms.CharField()
+  Name = forms.CharField()
+  class Meta:
+    model = Characters
+    fields = ("user","Name")
+  def save(self,commit=True):
+    Char = Characters()
+    user = User.objects.get(username=self.cleaned_data['user'])
+    Char.user = user
+    Char.Name = self.cleaned_data['Name']
+    if commit:
+      Char.save()
+    return Char
 class CampaignForm(forms.Form):
   Name = forms.CharField(label="Campaign Name")
   NumPlayer = forms.IntegerField()
@@ -87,3 +101,4 @@ class AddCharacterForm(forms.Form):
   #characters = Characters.objects.all().filter(user=user).select_related().values_list("Name",flat=True)
   #Characters = list(characters)
   Name = forms.ChoiceField(label = ": Add a Character",choices = ACCEPT)
+

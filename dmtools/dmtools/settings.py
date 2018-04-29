@@ -25,7 +25,7 @@ SECRET_KEY = 'n3e!8lixwa*2usw@w1_-#+0gl!=+(y&^w+r1$uj%$^s!ps78^s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','dm-tools1.herokuapp.com']
 
 
 # Application definition
