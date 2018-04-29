@@ -7,19 +7,29 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/World_Generator/">World Generator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Town_Generator">Town Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Shop_Generator">Shop Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Encounter_Generator">Encounter Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
@@ -33,12 +43,31 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="/Help/">Help</a>
-         </li>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/Forum/">Forum</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/Homebrew/">Homebrew</a>
+        </li>
+        <li>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">My Campaings</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">DM For</div>
+            {% for x in DM %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+            <div class="dropdown-header">Player For</div>
+            {% for x in Player %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+
+          </div>
+        </div>
         </li>
         <li class="nav-item dropdown ">
         <!-- Example split danger button -->
@@ -49,11 +78,12 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="logout/">Logout</a>
+            <a class="dropdown-item" href="/profile/{{Username}}">Profile</a>
           </div>
         </div>
-			</li>
-     </ul>
-   </div>
+      </li>
+    </ul>
+  </div>
 </nav>
 <br>
 <br>
@@ -69,7 +99,11 @@
   <input type="submit" value="Submit">
   <h3>Players in Campaign</h3>
   {% for x,y in players %}
-	  {{x}}
+    {% ifnotequal y "None"%}
+	    <p>{{x}}'s playing as {{y}}</p>
+    {% else %}
+      <p>{{x}}'s character has not been assigned yet</p>
+    {% endifnotequal %}
   {% endfor %}
   {% if Search %}
     <h3> Results </h3>
@@ -82,7 +116,7 @@
   {% for x,y in players %}
     {% ifequal x Username %}
         {% ifnotequal y "None"  %}
-          <p>{{x}} playing as {{y}}</p>
+          <p>{{x}} playing as {{y}} <a href="/change_char/{{Page}}/" class="btn btn-sm btn-dark" role="button">Change Character</a></p>
       {% else %} 
         <form action="/add_char/{{Page}}/" method="post">
 	        <p>{{x}}

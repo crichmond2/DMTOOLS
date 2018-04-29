@@ -7,19 +7,29 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/World_Generator/">World Generator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Town_Generator">Town Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Shop_Generator">Shop Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Encounter_Generator">Encounter Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
@@ -40,6 +50,25 @@
         <li class="nav-item">
           <a class="nav-link" href="/Homebrew/">Homebrew</a>
         </li>
+        <li>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">My Campaings</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">DM For</div>
+            {% for x in DM %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+            <div class="dropdown-header">Player For</div>
+            {% for x in Player %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+
+          </div>
+        </div>
+        </li>
         <li class="nav-item dropdown ">
         <!-- Example split danger button -->
         <div class="btn-group nav-link">
@@ -49,8 +78,10 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="logout/">Logout</a>
+            <a class="dropdown-item" href="/profile/{{Username}}">Profile</a>
           </div>
-        </li>
+        </div>
+      </li>
       </ul>
     </div>
 	</div>
@@ -63,10 +94,11 @@
 <H1> Add a Campaign</H1>
 <form action="{% url 'AddCampaign' %}" method="post">
 	{% csrf_token %}
-   {% for field in form%}
-  	  <p>
-        {{field.label_tag}} {{field}} {% for error in field.errors %}<a style="color:red;text-decoration:none">{{error}}</a>{% endfor%}<br>
-      </p>
-    {% endfor %}
+    {{form.Name.label_tag}} {{form.Name}} {% for error in form.Name.errors %}<a style="color:red;text-decoration:none">{{error}}</a>{% endfor%}<br>
+    {{form.NumPlayer.label_tag}} {{form.NumPlayer}} {% for error in form.NumPlayer.errors %}<a style="color:red;text-decoration:none">{{error}}</a>{% endfor%}<br>
+    {{form.DmName.as_hidden}}
+    {{form.Password.label_tag}} {{form.Password}} {% for error in form.Password.errors %}<a style="color:red;text-decoration:none">{{error}}</a>{% endfor%}<br>
+
+
 <input type="submit" value="Submit">
 {% endblock %}

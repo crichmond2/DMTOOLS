@@ -63,7 +63,7 @@ def profile(request,USER):
     print(form.is_valid())
     if form.is_valid():
       if form.cleaned_data['accept'] == "Accept":
-        Tcamp = Campaigns.objects.get(Name=form.cleaned_data['Campaign'])
+        camp = Campaigns.objects.get(Name=form.cleaned_data['Campaign'])
         player = Players.objects.create(Campaign=camp,user = USER)
         invites = Invitations.objects.filter(Campaign=form.cleaned_data['Campaign']).filter(User=USER).delete()
 
@@ -75,41 +75,49 @@ def profile(request,USER):
   DmFor = list(Dmfor)
   Playerfor = list(playerfor)
   Invites = list(invites)
-  if Invites ==  None:
+  print(invites)
+  if len(Invites) !=  0:
     camp = {"Campaign":Invites[0]}
     Form = InviteForm(camp)
-  Form = InviteForm()
+  else:
+    Form = InviteForm()
   context = {"Username":USER,"Form":Form,"form":form,"DmFor":DmFor,"Player":Playerfor,"Invites":Invites}
   return render(request,"profile.html",context)
 
 def AddCamp(request):
-	if request.method == "POST":
-		form = CampaignForm(request.POST)
-		if form.is_valid():
-			name = form.cleaned_data.get("Name")
-			form.save()
-			return redirect("/Campaign/"+name)
-	form = CampaignForm()
-	context = {'form':form,'Username':request.user.get_username()}
-	print("Im Here")
-	return render(request,"addcampaign.html",context)
+  if request.method == "POST":
+    form = CampaignForm(request.POST)
+    if form.is_valid():
+      name = form.cleaned_data.get("Name")
+      form.save()
+      return redirect("/Campaign/"+name)
+  values = {'DmName':request.user.get_username()}
+  form = CampaignForm(values)
+  context = {'form':form,'Username':request.user.get_username()}
+  print("Im Here")
+  return render(request,"addcampaign.html",context)
 
 def JoinCamp(request):
-	if request.method == "POST":
-		Form = SearchForm(request.POST)
-		if Form.is_valid():
-			name = Form.cleaned_data.get('Name')
-			Camps = Campaigns.objects.all().filter(Name=name).values_list('Name',flat=True)
-			Camp_l = list(Camps)
-			Found = list()
-			form = SearchForm()
-			searched = True
-			context = {'form':form,'Found':Camp_l,'Searched':searched}
-			return render(request,'campaignsearch.html',context)
-	form = SearchForm()
-	searched = False
-	context = {'form':form,'Searched':searched}
-	return render(request,'campaignsearch.html',context)
+  if request.method == "POST":
+    Form = SearchForm(request.POST)
+    if Form.is_valid():
+      name = Form.cleaned_data.get('Name')
+      Camps = Campaigns.objects.all().filter(Name=name).values_list('Name',flat=True)
+      Camp_l = list(Camps)
+      Found = list()
+      form = SearchForm()
+      searched = True
+      context = {'form':form,'Found':Camp_l,'Searched':searched}
+      return render(request,'campaignsearch.html',context)
+  form = SearchForm()
+  searched = False
+  Use = request.user.get_username()
+  Dmfor = Campaigns.objects.all().filter(DmName=Use).values_list('Name',flat=True)
+  playerfor = Players.objects.all().filter(user=request.user.get_username()).values_list('Campaign',flat=True)
+  DmFor = list(Dmfor)
+  Playerfor = list(playerfor)
+  context = {'form':form,'Searched':searched,'User':Use,'DM':DmFor,'Player':Playerfor}
+  return render(request,'campaignsearch.html',context)
 def Campaign(request,CAMPAIGN):
   player = list()
   DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
@@ -201,6 +209,10 @@ def Campaign(request,CAMPAIGN):
       break
     else:
       Player = False
+  try: 
+    Player
+  except:
+    Player = False
   user = request.user.username
   form = AddPlayerForm() 
   info = {'Campaign':CAMPAIGN}
@@ -223,7 +235,11 @@ def Campaign(request,CAMPAIGN):
   #print(player)
   #print(owner)
   print(tuple(CHARS))
-  context = {'players':tuple(CHARS),'player':Player,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner,"Form":Form}
+  Dmfor = Campaigns.objects.all().filter(DmName=user).values_list('Name',flat=True)
+  playerfor = Players.objects.all().filter(user=request.user.get_username()).values_list('Campaign',flat=True)
+  DmFor = list(Dmfor)
+  Playerfor = list(playerfor)
+  context = {'DM':DmFor,'Player':Playerfor,'players':tuple(CHARS),'player':Player,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner,"Form":Form}
   print(context)
   return render(request,"Campaign.html",context)
 def add_char(request,CAMPAIGN):
@@ -236,7 +252,12 @@ def add_char(request,CAMPAIGN):
     play.save()
     return redirect("/Campaign/"+CAMPAIGN+"/")
   return redirect("/Campaign/"+CAMPAIGN+"/")
-
+def change_char(request,CAMPAIGN):
+  camp = Campaigns.objects.get(Name=CAMPAIGN)
+  play = Players.objects.all().filter(Campaign=camp.Name).select_related().get(user=request.user.get_username())
+  play.Character = "None"
+  play.save()
+  return redirect("/Campaign/"+CAMPAIGN+"/")
 def Logout(request):
   logout(request)
   return redirect("/")
