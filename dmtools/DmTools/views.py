@@ -107,7 +107,7 @@ def JoinCamp(request):
       Found = list()
       form = SearchForm()
       searched = True
-      context = {'form':form,'Found':Camp_l,'Searched':searched}
+      context = {'form':form,'Found':Camp_l,'Searched':searched,'User':request.user.get_username()}
       return render(request,'campaignsearch.html',context)
   form = SearchForm()
   searched = False
