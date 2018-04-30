@@ -1,7 +1,5 @@
-<!DOCTYPE html>
+<!doctype html>
 {% extends "base.html" %}
-{% load static %}
-{% block title %}Home{% endblock %}
 {% block body %}
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -60,6 +58,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="logout/">Logout</a>
           </div>
+        </div>
         </li>
       </ul>
     </div>
@@ -70,45 +69,12 @@
   <br>
   <br>
   <br>
-<a class="btn btn-small btn-dark" role="button" href="/new_character/">Create new Character</a>
-<!--<div class="tabbable">--> <!-- Only required for left/right tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" style="color:black"href="#DM" role="tab" data-toggle="tab">Campaigns I DM</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#player" style="color:black"role="tab" data-toggle="tab">Campaigns I Play In</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#invitations" style="color:black"role="tab" data-toggle="tab">Invitations</a>
-  </li>
-</ul>
-<!-- Tab panes -->
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane fade in active" id="DM">
-    {% for camp in DmFor %}
-      <a style="color:black" href="/Campaign/{{camp}}/">{{camp}}</a><br>
-    {% endfor %} 
-    <a style="color:black" href="/add_campaign/">DM a new Campaign</a>
-  </div>
-  <div role="tabpanel" class="tab-pane fade" id="player">
-	  {% for play in Player %}
-			<a style="color:black"href="/Campaign/{{play}}/">{{play}}</a><br>
-		{% endfor %}
-    <a style="color:black" href="/join_campaign/">Join a Campaign</a>
-  </div>
-  <div role="tabpanel" class="tab-pane fade" id="invitations">
-	  {% for inv in Invites %}
-			<p>{{inv}}
-        <form action="/profile/{{Username}}/"method="post">
-        {% csrf_token %}
-        {{Form.Campaign.as_hidden}}
-        {{Form.accept}}
-        <input type="submit" value="Respond">
-      </p>
-		{% endfor %}
-  
-  </div>
-</div>
-
-{% endblock %}
+  <form action="/new_character/" method="post">
+    {% csrf_token %}
+    {% for field in CharacterForm%}
+      <p>{{field.label_tag}}{{field}}</p>
+    {% endfor %}
+    <!--{{CharacterForm.user.as_hidden}}
+    {{CharacterForm.Name.label_tag}}{{CharacterForm.Name}}-->
+  <input type="submit" value="Create">
+{% endblock %} 

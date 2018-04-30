@@ -8,19 +8,29 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/World_Generator/">World Generator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Town_Generator/">Town Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Shop_Generator/">Shop Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Encounter_Generator/">Encounter Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
@@ -36,7 +46,7 @@
           <a class="nav-link" href="/Help/">Help</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/Forum/">Forum</a>
+          <a class="nav-link bg-dark" href="/Forum/">Forum</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/Homebrew/">Homebrew</a>
@@ -55,19 +65,29 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/World_Generator/">World Generator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Town_Generator">Town Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Shop_Generator">Shop Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Encounter_Generator">Encounter Generator</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Character_Create/">Character Creator</a>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
@@ -88,6 +108,25 @@
         <li class="nav-item">
           <a class="nav-link" href="/Homebrew/">Homebrew</a>
         </li>
+        <li>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">My Campaings</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">DM For</div>
+            {% for x in DM %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+            <div class="dropdown-header">Player For</div>
+            {% for x in Player %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+
+          </div>
+        </div>
+        </li>
         <li class="nav-item dropdown ">
         <!-- Example split danger button -->
         <div class="btn-group nav-link">
@@ -99,11 +138,72 @@
             <a class="dropdown-item" href="logout/">Logout</a>
             <a class="dropdown-item" href="/profile/{{User}}">Profile</a>
           </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
 {% endif %}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+  <div class="col-1">
+  </div>
+  <div class="col-10">
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+<!-- Indicators -->
+      <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+        <li data-target="#demo" data-slide-to="3"></li>
+      </ul>
+
+<!-- The slideshow -->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{%static "/images/characters.jpg" %}" class="rounded"alt="Los Angeles" width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>Character Creator</h3>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{%static "/images/shop.jpg" %}" class="rounded" alt="Chicago" width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>Shop Generator</h3>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{%static "/images/DnDWorld.jpg" %}" alt="New York" class="rounded"width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>World Generator</h3>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{%static "/images/town.jpg" %}" alt="New York" class="rounded" width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>Town Generator</h3>
+          </div>
+        </div>
+      </div>
+
+<!-- Left and right controls -->
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+  </div>
+  <div class="col-1">
+  </div>
+  </div>
+</div>
 <br>
 <br>
 <br>
@@ -171,6 +271,69 @@
 </div>
 <br>
 <br>
+
+<!--    <div class="w3-content w3-display-container" style="width:900px; height:600px; padding-top: 150px;">
+      <div class="mySlides">
+        <img src="characters.jpg" style="width:100%">
+        <div class="w3-display-bottom w3-large w3-container w3-black" style="padding-bottom:50px">
+          Character Creator
+        </div>
+      </div>
+      <div class="mySlides">
+        <img src="town.jpg" style="width:100%">
+        <div class="w3-display-bottom w3-large w3-container w3-black" style="padding-bottom:50px">
+          Town Generator
+        </div>
+      </div>
+      <div class="mySlides">
+        <img src="shop.jpg" style="width:100%">
+        <div class="w3-display-bottom w3-large w3-container w3-black" style="padding-bottom:50px">
+          Shop Generator
+        </div>
+      </div>
+      <div class="mySlides">
+        <img src="world.jpg" style="width:100%">
+        <div class="w3-display-bottom w3-large w3-container w3-black" style="padding-bottom:50px">
+          World Generator
+        </div>
+      </div>
+      <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+        <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+      </div>
+    </div>
+<script>
+  var slideIndex = 1;
+  showDivs(slideIndex);
+
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+
+  function currentDiv(n) {
+    showDivs(slideIndex = n);
+  }
+
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+       dots[i].className = dots[i].className.replace(" w3-white", "");
+    }
+    x[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " w3-white";
+  }
+</script>-->
 <br>
 <br>
 <br>
