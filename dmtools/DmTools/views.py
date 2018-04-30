@@ -232,14 +232,6 @@ def Campaign(request,CAMPAIGN):
   values = {"Campaign":CAMPAIGN}
   charform = AddCharacterForm(values)#campaign=CAMPAIGN,user=request.user.get_username())#choices = tuple(chars))
   charform.fields['Name'].choices = tuple(chars)
-  #charform.fields['Campaign']=CAMPAIGN
-  #print(players)
-  #print(player)
-  #print(CAMPAIGN)
-  #print(user)
-  #print(player)
-  #print(owner)
-  print(tuple(CHARS))
   Dmfor = Campaigns.objects.all().filter(DmName=user).values_list('Name',flat=True)
   playerfor = Players.objects.all().filter(user=request.user.get_username()).values_list('Campaign',flat=True)
   DmFor = list(Dmfor)

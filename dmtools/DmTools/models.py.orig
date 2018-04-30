@@ -9,6 +9,13 @@ class Campaigns(models.Model):
   def save(self,commit = True, *args, **kwargs):
     if(commit==True):
       super(Campaigns,self).save(*args,**kwargs)
+<<<<<<< HEAD
+class Characters(models.Model):
+  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  Name = models.CharField(max_length=150)
+  #Player = models.OneToOneField(Players,on_delete=models.CASCADE,default="20000")
+||||||| merged common ancestors
+=======
 class Characters(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE)
   Name = models.CharField(max_length=150)
@@ -65,6 +72,7 @@ class Characters(models.Model):
   Trance = models.CharField(max_length = 300,default = "none")
   ShelterOfTheFaithful = models.CharField(max_length = 1000,default = "none")
   #Player = models.OneToOneField(Players,on_delete=models.CASCADE,default="20000")
+>>>>>>> f656f7f4ebd638a985d4e5a3eb2142a080db58aa
 class Players(models.Model):
   Campaign = models.ForeignKey(Campaigns,on_delete=models.CASCADE)
   Character = models.CharField(max_length=150,default="None")

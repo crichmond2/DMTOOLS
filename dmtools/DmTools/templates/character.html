@@ -71,7 +71,10 @@
   <br>
   <form action="/new_character/" method="post">
     {% csrf_token %}
-    {{CharacterForm.user.as_hidden}}
-    {{CharacterForm.Name.label_tag}}{{CharacterForm.Name}}
+    {% for field in CharacterForm%}
+      <p>{{field.label_tag}}{{field}}</p>
+    {% endfor %}
+    <!--{{CharacterForm.user.as_hidden}}
+    {{CharacterForm.Name.label_tag}}{{CharacterForm.Name}}-->
   <input type="submit" value="Create">
 {% endblock %} 

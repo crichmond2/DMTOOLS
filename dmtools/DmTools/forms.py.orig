@@ -32,10 +32,27 @@ class LoginForm(AuthenticationForm):
                              validators=[validate_unicode_slug]
                              )
   password = forms.CharField(label="Password",widget=PasswordInput(),required = True) 
+<<<<<<< HEAD
 class NewCharacterForm(forms.Form):
   user = forms.CharField()
   Name = forms.CharField()
-  ClassLevel = forms.CharField(label="Class and Level")
+  class Meta:
+    model = Characters
+    fields = ("user","Name")
+  def save(self,commit=True):
+    Char = Characters()
+    user = User.objects.get(username=self.cleaned_data['user'])
+    Char.user = user
+    Char.Name = self.cleaned_data['Name']
+    if commit:
+      Char.save()
+    return Char
+||||||| merged common ancestors
+=======
+class NewCharacterForm(forms.Form):
+  user = forms.CharField()
+  Name = forms.CharField()
+  ClassLevel = forms.CharField()
   BackGround = forms.CharField()
   Race = forms.CharField()
   Alignment = forms.CharField()
@@ -96,61 +113,10 @@ class NewCharacterForm(forms.Form):
     user = User.objects.get(username=self.cleaned_data['user'])
     Char.user = user
     Char.Name = self.cleaned_data['Name']
-    Char.ClassLevel = self.cleaned_data['ClassLevel']
-    Char.Background = self.cleaned_data['BackGround']
-    Char.Race = self.cleaned_data['Race']
-    Char.Alignment = self.cleaned_data['Alignment']
-    Char.ExpierincePoints = self.cleaned_data['ExperiencePoints']
-    Char.ArmorClass = self.cleaned_data['ArmorClass']
-    Char.Initiative = self.cleaned_data['Inititative']
-    Char.Speed = self.cleaned_data['Speed']
-    Char.ProficencyBonus = self.cleaned_data['ProficiencyBonus']
-    Char.Strength = self.cleaned_data['Strength']
-    Char.Dexterity = self.cleaned_data['Dexterity']
-    Char.Constituion = self.cleaned_data['Constitution']
-    Char.Inteligence = self.cleaned_data['Intelligence']
-    Char.Wisdom = self.cleaned_data['Wisdom']
-    Char.Charisma = self.cleaned_data['Charisma']
-    Char.Acrobatics = self.cleaned_data['Acrobatics']
-    Char.AnimalHandling = self.cleaned_data['AnimalHandling']
-    Char.Arcana = self.cleaned_data['Arcana']
-    Char.Athletics = self.cleaned_data['Athletics']
-    Char.Deception = self.cleaned_data['Deception']
-    Char.History = self.cleaned_data['History']
-    Char.Insight = self.cleaned_data['Insight']
-    Char.Intimidation = self.cleaned_data['Intimidation']
-    Char.Investigation = self.cleaned_data['Investigation']
-    Char.Medicine = self.cleaned_data['Medicine']
-    Char.Nature = self.cleaned_data['Nature']
-    Char.Perception = self.cleaned_data['Perception']
-    Char.Performance = self.cleaned_data['Performance']
-    Char.Persuasion = self.cleaned_data['Persuasion']
-    Char.Religion = self.cleaned_data['Religion']
-    Char.SleightOfHand = self.cleaned_data['SleightOfHand']
-    Char.Stealth = self.cleaned_data['Stealth']
-    Char.Survival = self.cleaned_data['Survival']
-    Char.PassiveWisom = self.cleaned_data['PassiveWisdom']
-    Char.Proficiencies = self.cleaned_data['Proficiencies']
-    Char.Languages = self.cleaned_data['Languages']
-    Char.HitPointMaximum = self.cleaned_data['HitPointMaximum']
-    Char.Cantrips = self.cleaned_data['Cantrips']
-    Char.SpellSlots = self.cleaned_data['SpellSlots']
-    Char.PreparedSpells = self.cleaned_data['PreparedSpells']
-    Char.Spellbook = self.cleaned_data['Spellbook']
-    Char.Equipment = self.cleaned_data['Equipment']
-    Char.PersonalityTraits = self.cleaned_data['PersonalityTraits']
-    Char.Ideals = self.cleaned_data['Ideals']
-    Char.Bonds = self.cleaned_data['Bonds']
-    Char.Flaws = self.cleaned_data['Flaws']
-    Char.SpellcastingAbility = self.cleaned_data['SpellcastingAbility']
-    Char.ArcaneRecovery = self.cleaned_data['ArcaneRecovery']
-    Char.Darkvision = self.cleaned_data['Darkvision']
-    Char.FeyAncestry = self.cleaned_data['FeyAncestry']
-    Char.Trance = self.cleaned_data['Trance']
-    Char.ShelterOfTheFaithful = self.cleaned_data['ShelterOfTheFaithful']
     if commit:
       Char.save()
     return Char
+>>>>>>> f656f7f4ebd638a985d4e5a3eb2142a080db58aa
 class CampaignForm(forms.Form):
   Name = forms.CharField(label="Campaign Name")
   NumPlayer = forms.IntegerField()
@@ -166,7 +132,7 @@ class CampaignForm(forms.Form):
     Camp.DmName = self.cleaned_data['DmName']
     Camp.Password = self.cleaned_data['Password']
     if(commit==True):
-      Char.save()
+      Camp.save()
     return Camp
 #class PlayerForm(forms.Form):
 #	Campaign
