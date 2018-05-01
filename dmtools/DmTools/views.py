@@ -88,6 +88,8 @@ def profile(request,USER):
   Dmfor = Campaigns.objects.all().filter(DmName=USER).values_list('Name',flat=True)
   playerfor = Players.objects.all().filter(user=USER).values_list('Campaign',flat=True)
   invites = Invitations.objects.all().filter(User=USER).values_list('Campaign',flat=True)
+  user = User.objects.get(username=request.user.get_username())
+  Chars = Characters.objects.all().filter(user=user).values_list('Name',flat=True)
   DmFor = list(Dmfor)
   Playerfor = list(playerfor)
   Invites = list(invites)
@@ -98,7 +100,7 @@ def profile(request,USER):
     Form = InviteForm(camp)
   else:
     Form = InviteForm()
-  context = {"Username":USER,"Form":Form,"form":form,"DmFor":DmFor,"Player":Playerfor,"Invites":Invites}
+  context = {"Username":USER,"Chars":Chars,"Form":Form,"form":form,"DmFor":DmFor,"Player":Playerfor,"Invites":Invites}
   return render(request,"profile.html",context)
 
 
@@ -306,6 +308,10 @@ def new_character(request):
   context = {"CharacterForm":form}
   return render(request,"character.html",context)
 
+def char_page(request,CHARACTER):
+  user = User.objects.get(username=request.user.get_username())
+  character = Characters.objects.filter(user=user).get(Name = CHARACTER)
+  form = NewCharacterForm(instance=character)
 
 
 

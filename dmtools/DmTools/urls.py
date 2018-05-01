@@ -13,6 +13,7 @@ urlpatterns = [
   url(r'^add_char/(?P<CAMPAIGN>.+)/$',views.add_char,name='Add Character'),
   url(r'^new_character/$',views.new_character,name = 'new Character'),
   url(r'^change_char/(?P<CAMPAIGN>.+)/$',views.change_char,name='Change Character'),
+  url(r'^Character/(?P<CHARACTER>.+)/$',views.char_page,name="Edit Char"),
 	url(r'^join_campaign/$',views.JoinCamp,name='JoinCampaign'),
   url(r'^logout/$',views.Logout,name='logout'),
 ]

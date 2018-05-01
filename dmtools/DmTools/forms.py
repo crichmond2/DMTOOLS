@@ -166,7 +166,7 @@ class CampaignForm(forms.Form):
     Camp.DmName = self.cleaned_data['DmName']
     Camp.Password = self.cleaned_data['Password']
     if(commit==True):
-      Char.save()
+      Camp.save()
     return Camp
 #class PlayerForm(forms.Form):
 #	Campaign
