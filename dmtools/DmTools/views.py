@@ -9,6 +9,7 @@ def home(request):
   #if request.user.is_authenticated():
   DmFor = list()
   Playerfor = list()
+  #If a user is signed in get the campaigns that they are a part of
   if request.user.is_authenticated:
     user = request.user.get_username()
     print(user)
@@ -20,54 +21,69 @@ def home(request):
   loggedin_user = request.user.get_username()
   context = {"Users":User.objects.all(),"User":loggedin_user,"DM":DmFor,"Player":Playerfor}
   return render(request,"home.html",context)
+
+
+
+
 def signin(request):
   if request.method == "POST":
     form = LoginForm(request.POST)
+    #Get the input Username and password
     username = request.POST['username']
     password = request.POST['password']
+    #Try to authenticate the user with their credentials
     user = authenticate(username=username,password=password)
     print(user)
+    #If the right username and password log the user in and return to home page
     if user is not None:
       login(request,user)
       return redirect("home")
-    #print(str(form.is_valid()))
-
-    #if form.is_valid():
-     # username = form.cleaned_data.get("Username")
-     # password = form.cleaned_data.get("Password")
-     # user = authenticate(username=username,password=password)
-     # login(request,user)
-     # return redirect("home")
+  #If it wasn't a post, just give the user a form to fill out
   else:
     form = LoginForm()
   context = {"SIform":form}
   return render(request,"signin.html",context)
+
+
+
+
+
 def register(request):
   if request.method == "POST":
     form = UserCreationForm(request.POST)
+    #If all parts of the form have been filled out save the form
     if form.is_valid():
+    #Save the user and get the username and password to log in the user
       form.save()
       username = form.cleaned_data.get('username')
       raw_password = form.cleaned_data.get('password1')
       user = authenticate(username=username,password=raw_password)
       login(request,user)
       return redirect("home")
+   #If user just got to the page, give them an empty form to fill out
   else:
     form = UserCreationForm()
     form2 = LoginForm()    
   context = {"form":form,"SIform":form2}
   return render(request,"register.html",context)
+
+
+
+
 def profile(request,USER):
+  #If the user is responding to an invite
   if request.method == "POST":
     form = InviteForm(request.POST)
     print(form.is_valid())
     if form.is_valid():
+     #And they accepted the invitation
       if form.cleaned_data['accept'] == "Accept":
+      #Add the user to the Campaign and remove the invitation
         camp = Campaigns.objects.get(Name=form.cleaned_data['Campaign'])
         player = Players.objects.create(Campaign=camp,user = USER)
         invites = Invitations.objects.filter(Campaign=form.cleaned_data['Campaign']).filter(User=USER).delete()
 
-        
+  
   form = CampaignForm()
   Dmfor = Campaigns.objects.all().filter(DmName=USER).values_list('Name',flat=True)
   playerfor = Players.objects.all().filter(user=USER).values_list('Campaign',flat=True)
@@ -76,6 +92,7 @@ def profile(request,USER):
   Playerfor = list(playerfor)
   Invites = list(invites)
   print(invites)
+  #If the user has an invite, Fill the campaign part of the form so User doesn't have to
   if len(Invites) !=  0:
     camp = {"Campaign":Invites[0]}
     Form = InviteForm(camp)
@@ -83,6 +100,9 @@ def profile(request,USER):
     Form = InviteForm()
   context = {"Username":USER,"Form":Form,"form":form,"DmFor":DmFor,"Player":Playerfor,"Invites":Invites}
   return render(request,"profile.html",context)
+
+
+
 
 def AddCamp(request):
   if request.method == "POST":
@@ -96,6 +116,8 @@ def AddCamp(request):
   context = {'form':form,'Username':request.user.get_username()}
   print("Im Here")
   return render(request,"addcampaign.html",context)
+
+
 
 def JoinCamp(request):
   if request.method == "POST":
@@ -118,18 +140,29 @@ def JoinCamp(request):
   Playerfor = list(playerfor)
   context = {'form':form,'Searched':searched,'User':Use,'DM':DmFor,'Player':Playerfor}
   return render(request,'campaignsearch.html',context)
+
+
+
+
+
 def Campaign(request,CAMPAIGN):
   player = list()
   DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
   dm = list(DM)
   thedm = dm[0]
-  #print(thedm)
+  #If the logged in user is the DM he is the owner of the page
   if request.user.get_username() == thedm:
     owner = True
   else:
+   #Otherwise he is not
     owner = False
-  print(CAMPAIGN)
-  print(owner)
+    """  If the user has submitted a form
+         and he is not the DM of the Campaign
+         then he is trying to be added to the campaign
+         So we get the password he input and see if it matches the 
+         password set by the DM. If it is we add him to the Campaign
+         Otherwise we don't and ask for the password again
+    """
   if request.method == "POST" and owner == False:
     print("HERE")
     Form = JoinCampaignForm(request.POST)
@@ -165,6 +198,10 @@ def Campaign(request,CAMPAIGN):
         return render(request,"Campaign.html",context)
       else:
         return redirect("/Campaign/" + CAMPAIGN + "/")
+  """If a form has been submitted, and the user is the DM
+     Then he is trying to add someone to the campaign, so we get the
+     user from the form and if they exist, then we send them an invitation
+  """
   if request.method == "POST" and owner == True:
     print("ITS A POST")
     Form = AddPlayerForm(request.POST)
@@ -193,11 +230,9 @@ def Campaign(request,CAMPAIGN):
         CHARS.append([players[x],charac[x]])
       context = {'players':tuple(CHARS),"Page":CAMPAIGN,"form":form,"Search":Users,"Owner":owner}
       return render(request,"Campaign.html",context)
-  print("FOUND")
   DM = Campaigns.objects.all().filter(Name=CAMPAIGN).values_list("DmName",flat=True)
   dm = list(DM)
   thedm = dm[0]
-  #print(thedm)
   if request.user.get_username() == thedm:
     owner = True
   else:
@@ -239,32 +274,41 @@ def Campaign(request,CAMPAIGN):
   context = {'DM':DmFor,'Player':Playerfor,'players':tuple(CHARS),'player':Player,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":player,"Owner":owner,"Form":Form}
   print(context)
   return render(request,"Campaign.html",context)
+
+
+
 def add_char(request,CAMPAIGN):
   if request.method == "POST":
-    print("ASDASDASD")
-    print(request.POST['Name'])
     champ = Campaigns.objects.get(Name=CAMPAIGN)
     play = Players.objects.all().filter(Campaign=champ.Name).select_related().get(user=request.user.get_username())
     play.Character = request.POST['Name']
     play.save()
     return redirect("/Campaign/"+CAMPAIGN+"/")
   return redirect("/Campaign/"+CAMPAIGN+"/")
+
+
+
 def change_char(request,CAMPAIGN):
   camp = Campaigns.objects.get(Name=CAMPAIGN)
   play = Players.objects.all().filter(Campaign=camp.Name).select_related().get(user=request.user.get_username())
   play.Character = "None"
   play.save()
   return redirect("/Campaign/"+CAMPAIGN+"/")
+
+
 def new_character(request):
   if request.method=="POST":
     form = NewCharacterForm(request.POST)
-    print(str(form.is_valid()))
     if form.is_valid():
       form.save()
   values = {'user':request.user.get_username()}
   form = NewCharacterForm(values)
   context = {"CharacterForm":form}
   return render(request,"character.html",context)
+
+
+
+
 def Logout(request):
   logout(request)
   return redirect("/")
