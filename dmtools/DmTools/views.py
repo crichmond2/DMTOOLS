@@ -311,8 +311,21 @@ def new_character(request):
 def char_page(request,CHARACTER):
   user = User.objects.get(username=request.user.get_username())
   character = Characters.objects.filter(user=user).get(Name = CHARACTER)
-  form = NewCharacterForm(instance=character)
-
+  values = character.__dict__
+  val = []
+  for x in values:
+    val.append([x,str(values.get(x,""))])
+    if x == 'user_id':
+      user_id = values.get(x,"")
+      user_name = User.objects.get(pk=user_id)
+      val.append(['user',user_name])
+      print(user_name)
+  print(dict(val))
+  form = NewCharacterForm(dict(val))
+  #form.user = "BITCH"#request.user.get_username()
+  form.fields['user'].initial = "BITCH"
+  context = {"Username":request.user.get_username(),"CharForm":form}
+  return render(request,"Character.html",context)
 
 
 def Logout(request):

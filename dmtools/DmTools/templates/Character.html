@@ -1,0 +1,86 @@
+<!doctype html>
+{% extends "base.html" %}
+{% block body %}
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+    <div class="mx-auto order-0">
+      <a class="navbar-brand mx-auto" href="/">DM TOOLS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSuppotedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/Help/">Help</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Forum/">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Homebrew/">Homebrew</a>
+        </li>
+        <li class="nav-item dropdown ">
+        <!-- Example split danger button -->
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">{{Username}}</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="logout/">Logout</a>
+          </div>
+        </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <form action="/new_character/" method="post">
+    {% csrf_token %}
+    {% for field in CharForm%}
+      {% ifnotequal field.label_tag "user" %}
+        <p>{{field.label_tag}}{{field}}</p>
+      {% else %}
+        {{field.as_hidden}}
+      {% endifnotequal %}
+    {% endfor %}
+    <!--{{CharacterForm.user.as_hidden}}
+    {{CharacterForm.Name.label_tag}}{{CharacterForm.Name}}-->
+  <input type="submit" value="Create">
+{% endblock %} 
+{% block scripts %}
+{% endblock %}
