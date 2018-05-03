@@ -382,6 +382,10 @@ def char_page(request,CHARACTER):
   context = {"Username":request.user.get_username(),"CharForm":form}
   return render(request,"Character.html",context)
 
+def TownGen(request):
+  user = request.user.get_username()
+  context = {'Username':user}
+  return render(request,"towngen.html",context)
 
 def Logout(request):
   logout(request)

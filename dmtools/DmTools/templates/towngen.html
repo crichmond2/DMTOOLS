@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Startup Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">World Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Town Generator</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Shop Generator</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Active Generators</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+    <div class="mx-auto order-0">
+      <a class="navbar-brand mx-auto" href="/">DM TOOLS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSuppotedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/Help/">Help</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Forum/">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Homebrew/">Homebrew</a>
+        </li>
+        <li>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">My Campaings</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">DM For</div>
+            {% for x in DM %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+            <div class="dropdown-header">Player For</div>
+            {% for x in Player %}
+              <a class="dropdown-item" href="/Campaign/{{x}}">{{x}}</a>
+            {% endfor %}
+
+          </div>
+        </div>
+        </li>
+        <li class="nav-item dropdown ">
+        <!-- Example split danger button -->
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">{{Username}}</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="logout/">Logout</a>
+            <a class="dropdown-item" href="/profile/{{Username}}">Profile</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>Town Generator</h1>
+<div class="container">
+  <div class="row">
+    <div class=col-6>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Town Pop.</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">Small(1000)</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Medium(5000)</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Large(10000)</a>
+          </div>
+        </div>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Leadership</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Aritocracy</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Theocracy</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Democracy</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Anarchy</a>
+          </div>
+        </div>
+    
+    </div>
+    <div class=col-6>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Economy</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Generator/">Industrial</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Agriculture</a>
+            <a class="dropdown-item"   href="/profile/{{User}}">Artisanal</a>
+          </div>
+        </div>
+        <div class="btn-group nav-link">
+          <button type="button" class="btn btn-dark ">Wealth</button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item "  href="/World_Ge/">Very Poor</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Poor</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Modest</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Wealthy</a>
+            <a class="dropdown-item" href="/profile/{{User}}">Very Wealthy</a>
+          </div>
+        </div>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+          </tbody>
+        </table>
+    
+    </div>
+  </div>
+</div>
+{% endblock %}

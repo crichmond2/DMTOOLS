@@ -11,6 +11,7 @@ urlpatterns = [
 	url(r'^add_campaign/$',views.AddCamp,name='AddCampaign'),
 	url(r'^Campaign/(?P<CAMPAIGN>.+)/$',views.Campaign,name='Campaign'),
   url(r'^add_char/(?P<CAMPAIGN>.+)/$',views.add_char,name='Add Character'),
+  url(r'^town_gen/$',views.TownGen,name="Town Generator"),
   url(r'^new_character/$',views.new_character,name = 'new Character'),
   url(r'^change_char/(?P<CAMPAIGN>.+)/$',views.change_char,name='Change Character'),
   url(r'^Character/(?P<CHARACTER>.+)/$',views.char_page,name="Edit Char"),
