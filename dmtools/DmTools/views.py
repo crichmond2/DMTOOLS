@@ -303,9 +303,64 @@ def new_character(request):
     form = NewCharacterForm(request.POST)
     if form.is_valid():
       form.save()
-  values = {'user':request.user.get_username()}
+      return redirect('/profile/'+request.user.get_username()+'/')
+  values = {'user':request.user.get_username(),
+            'ClassLevel':"none",
+            'BackGround':"none",
+            'Race':"none",
+            'Alignment':"none",
+            'ExperiencePoints':0,
+            'ArmorClass':0,
+            'Inititative':0,
+            'Speed':0,
+            'ProficiencyBonus':0,
+            'Strength':0,
+            'Dexterity':0,
+            'Constitution':0,
+            'Intelligence':0,
+            'Wisdom':0,
+            'Charisma':0,
+            'Acrobatics':0,
+            'AnimalHandling':0,
+            'Arcana':0,
+            'Athletics':0,
+            'Deception':0,
+            'History':0,
+            'Insight':0,
+            'Intimidation':0,
+            'Investigation':0,
+            'Medicine':0,
+            'Nature':0,
+            'Perception':0,
+            'Performance':0,
+            'Persuasion':0,
+            'Religion':0,
+            'SleightOfHand':0,
+            'Stealth':0,
+            'Survival':0,
+            'PassiveWisdom':0,
+            'Proficiencies':0,
+            'Languages':"none",
+            'HitPointMaximum':0,
+            'Cantrips':"none",
+            'SpellSlots':'none',
+            'PreparedSpells':'none',
+            'Spellbook':'none',
+            'Equipment':'none',
+            'PersonalityTraits':'none',
+            'Ideals':'none',
+            'Bonds':'none',
+            'Flaws':'none',
+            'SpellcastingAbility':'none',
+            'ArcaneRecovery':'none',
+            'Darkvision':'none',
+            'FeyAncestry':'none',
+            'Trance':'none',
+            'ShelterOfTheFaithful':'none'
+           }
   form = NewCharacterForm(values)
   context = {"CharacterForm":form}
+  #return redirect('/profile/'+request.user.get_username()+'/')
   return render(request,"character.html",context)
 
 def char_page(request,CHARACTER):
