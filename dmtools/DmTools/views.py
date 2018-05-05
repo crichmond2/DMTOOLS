@@ -37,7 +37,7 @@ def signin(request):
     #If the right username and password log the user in and return to home page
     if user is not None:
       login(request,user)
-      return redirect("home")
+      return redirect("/profile/"+user.get_username()+"/")
   #If it wasn't a post, just give the user a form to fill out
   else:
     form = LoginForm()
@@ -59,7 +59,7 @@ def register(request):
       raw_password = form.cleaned_data.get('password1')
       user = authenticate(username=username,password=raw_password)
       login(request,user)
-      return redirect("home")
+      return redirect("/profile/"+user.get_username()+"/")
    #If user just got to the page, give them an empty form to fill out
   else:
     form = UserCreationForm()
@@ -195,9 +195,12 @@ def Campaign(request,CAMPAIGN):
         chars = []
         for x in Chars:
           chars.append([x,x])
+        #charform = AddCharacterForm()
         charform = AddCharacterForm(campaign=CAMPAIGN,user=request.user.get_username())#choices = tuple(chars))
         context = {'players':tuple(CHARS),'player':player,"Characters":charform,"Page":CAMPAIGN,"form":form,"Username":user,"Search":Player,"Owner":owner,"Form":Form}
-        return render(request,"Campaign.html",context)
+        return redirect("/Campaign/" + CAMPAIGN + "/")
+        
+        #return render(request,"Campaign.html",context)
       else:
         return redirect("/Campaign/" + CAMPAIGN + "/")
   """If a form has been submitted, and the user is the DM
@@ -266,8 +269,8 @@ def Campaign(request,CAMPAIGN):
     CHARS.append([players[x],charac[x]])
   for x in Chars:
     chars.append([x,x])
-  values = {"Campaign":CAMPAIGN}
-  charform = AddCharacterForm(values)#campaign=CAMPAIGN,user=request.user.get_username())#choices = tuple(chars))
+  values = {"Campaign":CAMPAIGN,'user':request.user.get_username()}
+  charform = AddCharacterForm(campaign=CAMPAIGN,user=request.user.get_username())#choices = tuple(chars))
   charform.fields['Name'].choices = tuple(chars)
   Dmfor = Campaigns.objects.all().filter(DmName=user).values_list('Name',flat=True)
   playerfor = Players.objects.all().filter(user=request.user.get_username()).values_list('Campaign',flat=True)
