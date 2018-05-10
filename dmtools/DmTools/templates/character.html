@@ -72,7 +72,11 @@
   <form action="/new_character/" method="post">
     {% csrf_token %}
     {% for field in CharacterForm%}
+      {% ifnotequal field.label_tag "User:"%}
       <p>{{field.label_tag}}{{field}}</p>
+      {% else %}
+        {{field.as_hidden}}
+      {% endifnotequal %}
     {% endfor %}
     <!--{{CharacterForm.user.as_hidden}}
     {{CharacterForm.Name.label_tag}}{{CharacterForm.Name}}-->

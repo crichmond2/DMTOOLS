@@ -33,7 +33,7 @@ class LoginForm(AuthenticationForm):
                              )
   password = forms.CharField(label="Password",widget=PasswordInput(),required = True) 
 class NewCharacterForm(forms.Form):
-  user = forms.CharField(required = True)
+  user = forms.CharField(label="User",required = True,widget=forms.HiddenInput())
   Name = forms.CharField(required = True)
   ClassLevel = forms.CharField(label="Class and Level",required = False,initial="none")
   BackGround = forms.CharField(required = False,initial="none")

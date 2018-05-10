@@ -27,7 +27,7 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item "  href="/World_Ge/">Encounter Generator</a>
-            <a class="dropdown-item" href="/profile/{{User}}">Character Creator</a>
+            <a class="dropdown-item" href="/new_character/">Character Creator</a>
           </div>
         </div>
       </li>
@@ -74,7 +74,7 @@
 <!--<div class="tabbable">--> <!-- Only required for left/right tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" style="color:black"href="#DM" role="tab" data-toggle="tab">Campaigns I DM</a>
+    <a class="nav-link " style="color:black"href="#DM" role="tab" data-toggle="tab">Campaigns I DM</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#player" style="color:black"role="tab" data-toggle="tab">Campaigns I Play In</a>
@@ -88,17 +88,17 @@
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane fade in active" id="DM">
+  <div role="tabpanel" class="tab-pane fade active" id="DM">
     {% for camp in DmFor %}
       <a style="color:black" href="/Campaign/{{camp}}/">{{camp}}</a><br>
     {% endfor %} 
-    <a style="color:black" href="/add_campaign/">DM a new Campaign</a>
+    <a href="/add_campaign/">DM a new Campaign</a>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="player">
 	  {% for play in Player %}
 			<a style="color:black"href="/Campaign/{{play}}/">{{play}}</a><br>
 		{% endfor %}
-    <a style="color:black" href="/join_campaign/">Join a Campaign</a>
+    <a  href="/join_campaign/">Join a Campaign</a>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="invitations">
 	  {% for inv in Invites %}
@@ -116,6 +116,7 @@
     {% for chars in Chars %}
     <a style="color:black"href="/Character/{{chars}}/">{{chars}}</a><br>
     {% endfor %}
+    <a href="/new_character/">Create new Character</a>
   </div>
 </div>
 
