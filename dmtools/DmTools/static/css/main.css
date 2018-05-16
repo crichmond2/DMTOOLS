@@ -1,0 +1,19 @@
+.add-char {
+  position: relative;
+  top: 45%;
+}
+
+.profile-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.char-tabs {
+  width: 100%;
+  display: relative;
+}
+
+.tab-actions {
+  position: relative;
+}
